@@ -7,6 +7,10 @@ my $version = '2009-01-01';
 define_api_method SubmitFeed =>
     version => "$version",
     parameters => {
+        MarketplaceIdList => {
+             required   =>      0,
+             type       =>      'IdList',
+        },
         FeedContent => {
             required => 1,
             type     => 'HTTP-BODY',
@@ -38,7 +42,7 @@ define_api_method GetFeedSubmissionList =>
     respond => sub {
         my $root = shift;
         convert($root, HasNext => 'boolean');
-        convert_FeedSubmissionInfo($root);
+        Amazon::MWS::Reports::convert_FeedSubmissionInfo($root);
         return $root;
     };
 
@@ -53,7 +57,7 @@ define_api_method GetFeedSubmissionListByNextToken =>
     respond => sub {
         my $root = shift;
         convert($root, HasNext => 'boolean');
-        convert_FeedSubmissionInfo($root);
+        Amazon::MWS::Reports::convert_FeedSubmissionInfo($root);
 
         return $root;
     };
@@ -78,7 +82,7 @@ define_api_method CancelFeedSubmissions =>
     },
     respond => sub {
         my $root = shift;
-        convert_FeedSubmissionInfo($root);
+        Amazon::MWS::Reports::convert_FeedSubmissionInfo($root);
         return $root;
     };
 
